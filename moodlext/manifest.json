@@ -12,7 +12,8 @@
     {
       "matches": ["https://moodle2.cs.huji.ac.il/nu*"],
       "js": ["contentScript.js"],
-	  "css": ["contentScript.css"]
+	  "css": ["contentScript.css"],
+	  "run_at": "document_start"
     }
   ],
   "manifest_version": 2

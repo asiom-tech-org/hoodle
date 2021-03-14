@@ -71,7 +71,7 @@ function createColorCss(c1, c2, c3) {
 }
 
 
-window.addEventListener('load', (event) => {
+document.addEventListener('DOMContentLoaded', (event) => {
 	var newColorStyle = document.createElement('style');
 	document.body.appendChild(newColorStyle);
 	getColor(function(c) {
