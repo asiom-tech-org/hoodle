@@ -35,9 +35,11 @@
 	button {
 		display: block;
 		width: 150px;
-		margin: 10px;
+		margin: 3px;
+		padding: 2px;
 		cursor: pointer;
 		border: 0;
+		border-radius: 1px;
 	}
 	#resetCourses, #resetColor {
 		font-size: 80%;
@@ -62,6 +64,19 @@
 	a {
 		margin: 5px;
 		color: #444 !important;
+		font-weight: bold;
+	}
+	
+	.help {
+		font-size: 80%;
+		text-align: right;
+		display: block;
+	}
+	.notice {
+		color: red;
+		font-size: 80%;
+		text-align: center;
+		direction: rtl;
 	}
     </style>
   </head>
@@ -89,5 +104,10 @@
 	</button>
 	<a href="#" id="toHebrew">עברית</a>
 	<a href="#" id="toEnglish">English</a>
+	<p class="notice">
+		<span class="en">It's recommended to disable the extension while in an exam</span>
+		<span class="he">מומלץ לבטל את התוסף בעת בחינה</span>
+	</p>
+	<a class="help" href="https://students-il.blogspot.com/2021/03/help.html"><span class="he">עזרה ותנאי שימוש</span><span class="en">help and terms</span></a>
   </body>
 </html>
