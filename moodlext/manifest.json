@@ -1,0 +1,19 @@
+{
+  "name": "HujiMoodleExtension",
+  "version": "1.0",
+  "description": "My Extension!",
+  "permissions": [
+    "storage"
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://moodle2.cs.huji.ac.il/nu*"],
+      "js": ["contentScript.js"],
+	  "css": ["contentScript.css"]
+    }
+  ],
+  "manifest_version": 2
+}

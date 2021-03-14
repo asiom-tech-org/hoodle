@@ -1,0 +1,16 @@
+.hmex-edit {
+	display: none;
+}
+
+.hmex-editmode .hmex-edit {
+	display: block;
+}
+
+.hmex-reverse ul.topics { 
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.hmex-reverse ul.topics>li {
+    flex: 0 0 auto;
+}
