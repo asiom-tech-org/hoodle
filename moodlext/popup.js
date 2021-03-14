@@ -2,11 +2,11 @@ const COLOR_KEY = 'hmex_bgcolor';
 const LANGUAGE_KEY = 'hmex_lang';
 
 function resetCourses(cb) {
-    chrome.storage.local.get(null, function(items) {
+    chrome.storage.sync.get(null, function(items) {
         let allKeys = Object.keys(items);
         let remove = allKeys.filter(k => k.startsWith("closed_"));
         console.log(remove);
-        chrome.storage.local.remove(remove, function() {
+        chrome.storage.sync.remove(remove, function() {
             cb && cb();
         });
     });
@@ -33,17 +33,17 @@ function sendAction(action, data, cb) {
 }
 
 function getColor(cb) {
-	chrome.storage.local.get([COLOR_KEY], function(result) {
+	chrome.storage.sync.get([COLOR_KEY], function(result) {
         cb && cb(result[COLOR_KEY]);
     });
 }
 function getLanguage(cb) {
-	chrome.storage.local.get([LANGUAGE_KEY], function(result) {
+	chrome.storage.sync.get([LANGUAGE_KEY], function(result) {
         cb && cb(result[LANGUAGE_KEY]);
     });
 }
 function setLanguage(lang, cb) {
-	chrome.storage.local.set({[LANGUAGE_KEY]: lang}, function() {
+	chrome.storage.sync.set({[LANGUAGE_KEY]: lang}, function() {
         cb && cb(lang);
     });
 }

@@ -1,6 +1,6 @@
 function setClose(course, cb) {
     let key = 'closed_' + course;
-    chrome.storage.local.set({
+    chrome.storage.sync.set({
         [key]: true
     }, function() {
         cb && cb(course);
@@ -8,7 +8,7 @@ function setClose(course, cb) {
 }
 function removeClose(course, cb) {
     let key = 'closed_' + course;
-    chrome.storage.local.remove([key], function() {
+    chrome.storage.sync.remove([key], function() {
         cb && cb(course);
     });
 }
@@ -16,25 +16,25 @@ function removeClose(course, cb) {
 function getClosed(course, cb) {
     let key = 'closed_' + course;
 
-    chrome.storage.local.get([key], function(result) {
+    chrome.storage.sync.get([key], function(result) {
         cb && cb(result[key]);
     });
 }
 const COLOR_KEY = 'hmex_bgcolor';
 function setColor(color, cb) {
-	chrome.storage.local.set({
+	chrome.storage.sync.set({
         [COLOR_KEY]: color,
     }, function() {
         cb && cb(course);
     });
 }
 function getColor(cb) {
-	chrome.storage.local.get([COLOR_KEY], function(result) {
+	chrome.storage.sync.get([COLOR_KEY], function(result) {
         cb && cb(result[COLOR_KEY]);
     });
 }
 function resetColor(cb) {
-	chrome.storage.local.remove([COLOR_KEY], function(result) {
+	chrome.storage.sync.remove([COLOR_KEY], function(result) {
         cb && cb();
     });
 }
