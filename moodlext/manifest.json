@@ -1,7 +1,7 @@
 {
-  "name": "HujiMoodleExtension",
+  "name": "Hoodle",
   "version": "1.0",
-  "description": "My Extension!",
+  "description": "Utilities for Moodle",
   "permissions": [
     "storage"
   ],
