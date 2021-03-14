@@ -45,11 +45,11 @@ const EDITMODE_CLASS = "hmex-editmode";
 const REVERSEWEEKS_CLASS = "hmex-reverse";
 
 let CSS_COLOR_TEMPLATE = `
-#page-header div.d-flex{
+#page-header div.d-flex:nth-of-type(1){
     background: {{1}} !important;
 }
 
-#frame-column,.year20 .login_div3{
+#frame-column, .login_div3{
     background: {{2}} !important;
 }
 
