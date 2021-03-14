@@ -1,9 +1,14 @@
 function setClose(course, cb) {
     let key = 'closed_' + course;
-    console.log(key);
     chrome.storage.local.set({
         [key]: true
     }, function() {
+        cb && cb(course);
+    });
+}
+function removeClose(course, cb) {
+    let key = 'closed_' + course;
+    chrome.storage.local.remove([key], function() {
         cb && cb(course);
     });
 }
@@ -34,7 +39,10 @@ function resetColor(cb) {
     });
 }
 function hideCourse(el) {
-    el.style.display = 'none';
+    el.classList.add("hmex-hidden");
+}
+function unhideCourse(el) {
+    el.classList.remove("hmex-hidden");
 }
 
 function getCourseId(el) {
@@ -104,7 +112,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let courseButtons = document.querySelectorAll("li.type_course");
     courseButtons.forEach((v) => {
         let t = document.createElement("div");
-        let xButton = document.createElement("button");
         let cid = getCourseId(v);
         getClosed(cid, (k) => {
             if (k) {
@@ -113,12 +120,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
         })
         v.prepend(t);
         t.classList.add("hmex-edit");
+		
+		let xButton = document.createElement("button");
 		xButton.classList.add("hmex-x");
         xButton.innerHTML = 'X';
         t.appendChild(xButton);
+		
+		let vButton = document.createElement("button");
+		vButton.classList.add("hmex-v");
+        vButton.innerHTML = 'V';
+        t.appendChild(vButton);
+		
         xButton.onclick = (event) => {
             setClose(cid, () => {
                 hideCourse(v)
+            });
+        };
+		vButton.onclick = (event) => {
+            removeClose(cid, () => {
+                unhideCourse(v)
             });
         };
     });

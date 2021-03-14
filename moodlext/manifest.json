@@ -16,5 +16,8 @@
 	  "run_at": "document_start"
     }
   ],
+  "icons": {
+    "128": "icon-128.png"
+  },
   "manifest_version": 2
 }

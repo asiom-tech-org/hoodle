@@ -16,7 +16,14 @@
 }
 
 .hmex-x {
+	display: inline-block;
 	background-color: #ff7171;
+	border: 0px;
+	font-size: 10px;
+}
+
+.hmex-v {
+	background-color: lightgreen;
 	border: 0px;
 	font-size: 10px;
 }
@@ -32,4 +39,22 @@
 
 .dir-rtl  .hmex-edit {
 	right: 5px;
+}
+
+.hmex-hidden {
+	display: none;
+}
+
+.hmex-editmode .hmex-hidden {
+	display: block;
+}
+
+.hmex-v {
+	display: none;
+}
+.hmex-hidden .hmex-v {
+	display: inline-block;
+}
+.hmex-hidden .hmex-x {
+	display: none;
 }
