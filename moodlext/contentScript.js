@@ -15,7 +15,24 @@ function getClosed(course, cb) {
         cb && cb(result[key]);
     });
 }
-
+const COLOR_KEY = 'hmex_bgcolor';
+function setColor(color, cb) {
+	chrome.storage.local.set({
+        [COLOR_KEY]: color,
+    }, function() {
+        cb && cb(course);
+    });
+}
+function getColor(cb) {
+	chrome.storage.local.get([COLOR_KEY], function(result) {
+        cb && cb(result[COLOR_KEY]);
+    });
+}
+function resetColor(cb) {
+	chrome.storage.local.remove([COLOR_KEY], function(result) {
+        cb && cb();
+    });
+}
 function hideCourse(el) {
     el.style.display = 'none';
 }
@@ -26,7 +43,43 @@ function getCourseId(el) {
 
 const EDITMODE_CLASS = "hmex-editmode";
 const REVERSEWEEKS_CLASS = "hmex-reverse";
+
+let CSS_COLOR_TEMPLATE = `
+#page-header div.d-flex{
+    background: {{1}} !important;
+}
+
+#frame-column,.year20 .login_div3{
+    background: {{2}} !important;
+}
+
+.block, .card-body.p-3, .card-title.d-inline{
+    background-color: {{2}} !important;
+}
+
+.login_div3{
+    border-color: {{3}} !important;
+}
+`;
+
+function createColorCss(c1, c2, c3) {
+	let t = CSS_COLOR_TEMPLATE;
+	t = t.replace(/\{\{1\}\}/g, c1);
+	t = t.replace(/\{\{2\}\}/g, c2);
+	t = t.replace(/\{\{3\}\}/g, c3);
+	return t;
+}
+
+
 window.addEventListener('load', (event) => {
+	var newColorStyle = document.createElement('style');
+	document.body.appendChild(newColorStyle);
+	getColor(function(c) {
+		if (c) {
+			newColorStyle.innerHTML = '';
+			newColorStyle.appendChild(document.createTextNode(createColorCss(c, c, c)));
+		}
+	});
 
     chrome.runtime.onMessage.addListener(msgObj => {
         if (msgObj.action == "toggleEditMode") {
@@ -35,6 +88,16 @@ window.addEventListener('load', (event) => {
         if (msgObj.action == "reverseWeeks") {
             document.body.classList.toggle(REVERSEWEEKS_CLASS);
         }
+		if (msgObj.action == "changeColor") {
+			let color = msgObj.data;
+			newColorStyle.innerHTML = '';
+			newColorStyle.appendChild(document.createTextNode(createColorCss(color, color, color)));
+			setColor(color);
+		}
+		if (msgObj.action == "resetColor") {
+			newColorStyle.innerHTML = '';
+			resetColor();
+		}
     });
 
 
@@ -50,9 +113,8 @@ window.addEventListener('load', (event) => {
         })
         v.prepend(t);
         t.classList.add("hmex-edit");
-        t.setAttribute('style', 'position: absolute;right: 5px;');
+		xButton.classList.add("hmex-x");
         xButton.innerHTML = 'X';
-        xButton.setAttribute('style', "background-color: #ff7171;border: 0px;font-size: 10px;");
         t.appendChild(xButton);
         xButton.onclick = (event) => {
             setClose(cid, () => {

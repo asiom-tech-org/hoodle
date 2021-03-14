@@ -14,3 +14,22 @@
 .hmex-reverse ul.topics>li {
     flex: 0 0 auto;
 }
+
+.hmex-x {
+	background-color: #ff7171;
+	border: 0px;
+	font-size: 10px;
+}
+
+.hmex-edit {
+	position: absolute;
+	right: 5px;
+}
+
+.dir-ltr .hmex-edit {
+	left: 5px;
+}
+
+.dir-rtl  .hmex-edit {
+	right: 5px;
+}

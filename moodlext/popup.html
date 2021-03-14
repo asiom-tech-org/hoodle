@@ -2,6 +2,7 @@
 <html>
   <head>
   <script src="popup.js"></script>
+  <script src="ext/vanilla-picker.min.js"></script>
     <style>
 	h3 {
 		text-align: center;
@@ -37,11 +38,20 @@
 		cursor: pointer;
 		border: 0;
 	}
-	#resetCourses {
+	#resetCourses, #resetColor {
 		font-size: 80%;
 	}
 	body {
 		background-color: #fafafa;
+	}
+	
+	.picker_wrapper {
+		width: 100px !important;
+	}
+	
+	.picker_done button {
+		width: 90%;
+		font-size: 70%;
 	}
     </style>
   </head>
@@ -49,6 +59,8 @@
 	<h3>Hoodle</h3>
 	<button id="reverseWeeks" class="button-secondary">reverse weeks</button>
     <button id="toggleEditMode" class="button-secondary">edit courses</button>
+    <button id="changeColor" class="button-secondary">change color</button>
     <button id="resetCourses" class="button-error">reset courses</button>
+    <button id="resetColor" class="button-error">reset colors</button>
   </body>
 </html>
