@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <meta charset="UTF-8">
   <script src="popup.js"></script>
   <script src="ext/vanilla-picker.min.js"></script>
     <style>
@@ -53,14 +54,39 @@
 		width: 90%;
 		font-size: 70%;
 	}
+	
+	.lang-hide {
+		display: none;
+	}
+	
+	a {
+		margin: 5px;
+	}
     </style>
   </head>
   <body>
 	<h3>Hoodle</h3>
-	<button id="reverseWeeks" class="button-secondary">reverse weeks</button>
-    <button id="toggleEditMode" class="button-secondary">edit courses</button>
-    <button id="changeColor" class="button-secondary">change color</button>
-    <button id="resetCourses" class="button-error">reset courses</button>
-    <button id="resetColor" class="button-error">reset colors</button>
+	<button id="reverseWeeks" class="button-secondary">
+		<span class="en lang-hide">reverse weeks</span>
+		<span class="he">הפיכת סדר שבועות</span>
+	</button>
+    <button id="toggleEditMode" class="button-secondary">
+		<span class="en lang-hide">edit courses</span>
+		<span class="he">עריכת רשימת קורסים</span>
+	</button>
+    <button id="changeColor" class="button-secondary">
+		<span class="en lang-hide">change color</span>
+		<span class="he">שינוי צבע</span>
+	</button>
+    <button id="resetCourses" class="button-error">
+		<span class="en lang-hide">reset courses</span>
+		<span class="he">איפוס רשימת קורסים</span>
+	</button>
+    <button id="resetColor" class="button-error">
+		<span class="en">reset color</span>
+		<span class="he">איפוס צבע</span>
+	</button>
+	<a href="#" id="toHebrew">עברית</a>
+	<a href="#" id="toEnglish">English</a>
   </body>
 </html>

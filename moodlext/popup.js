@@ -1,4 +1,5 @@
 const COLOR_KEY = 'hmex_bgcolor';
+const LANGUAGE_KEY = 'hmex_lang';
 
 function resetCourses(cb) {
     chrome.storage.local.get(null, function(items) {
@@ -33,12 +34,38 @@ function sendAction(action, data, cb) {
 
 function getColor(cb) {
 	chrome.storage.local.get([COLOR_KEY], function(result) {
-		console.log(result);
         cb && cb(result[COLOR_KEY]);
     });
 }
+function getLanguage(cb) {
+	chrome.storage.local.get([LANGUAGE_KEY], function(result) {
+        cb && cb(result[LANGUAGE_KEY]);
+    });
+}
+function setLanguage(lang, cb) {
+	chrome.storage.local.set({[LANGUAGE_KEY]: lang}, function() {
+        cb && cb(lang);
+    });
+}
+
+const LANGUAGES = ["en", "he"];
+function changeUILanguage(lang) {
+	if (!LANGUAGES.includes(lang)) {
+		return;
+	}
+	for (let lang of LANGUAGES) {
+		document.querySelectorAll("." + lang).forEach((el) => {el.classList.add("lang-hide");});
+	}
+	document.querySelectorAll("." + lang).forEach((el) => {el.classList.remove("lang-hide")});
+}
+
 
 window.addEventListener('load', (e) => {
+	getLanguage((lang) => {
+		if (lang) {
+		changeUILanguage(lang);
+		}
+	});
     console.log("loaded");
     document.getElementById("resetCourses").addEventListener('click', function() {
         resetCourses();
@@ -51,6 +78,12 @@ window.addEventListener('load', (e) => {
     });
 	document.getElementById("resetColor").addEventListener('click', function() {
         sendAction("resetColor");
+    });
+	document.getElementById("toHebrew").addEventListener('click', function() {
+		setLanguage("he", (lang) => changeUILanguage(lang));
+    });
+	document.getElementById("toEnglish").addEventListener('click', function() {
+        setLanguage("en", (lang) => changeUILanguage(lang));
     });
 	
 	getColor(function(c) {
