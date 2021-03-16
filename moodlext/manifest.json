@@ -1,7 +1,7 @@
 {
   "name": "Hoodle",
   "version": "0.1",
-  "description": "Utilities for Moodle",
+  "description": "Utilities for Huji Moodle: hide past courses, change theme color and more!",
   "permissions": [
     "storage"
   ],
