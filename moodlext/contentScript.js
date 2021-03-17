@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-	scriptMain();
+	try {
+		let disable_key = "hoodle_disable";
+		chrome.storage.sync.get([disable_key], function(result){
+			if (result[disable_key] === undefined || result[disable_key] === false) {
+				scriptMain();
+			} else {
+				console.log("Hoodle is disabled");
+			}
+		});
+	} catch (err) {}
 });
 
 function scriptMain() {
