@@ -57,9 +57,20 @@
 		font-size: 70%;
 	}
 	
-	.lang-hide {
+	
+	.en {
 		display: none;
 	}
+	.lang-he .he {
+		display: inline;
+	}
+	.lang-en .en {
+		display: inline;
+	}
+	.lang-en .he {
+		display: none;
+	}
+	
 	.he {
 		direction: rtl;
 		unicode-bidi: embed;
@@ -134,44 +145,44 @@
   <body>
 	<h3>Hoodle</h3>
 	<p class="disabled-message if-disabled">
-		<span class="en lang-hide">disabled</span>
+		<span class="en">disabled</span>
 		<span class="he">מבוטל</span>
 	</p>
 	<div class="if-enabled">
 		<button id="reverseWeeks" class="button-secondary">
-			<span class="en lang-hide">reverse weeks</span>
+			<span class="en">reverse weeks</span>
 			<span class="he">הפיכת סדר שבועות</span>
 		</button>
 		<button id="toggleEditMode" class="button-secondary">
-			<span class="en lang-hide">edit courses</span>
+			<span class="en">edit courses</span>
 			<span class="he">עריכת רשימת קורסים</span>
 		</button>
 		<button id="changeColor" class="button-secondary">
-			<span class="en lang-hide">change color</span>
+			<span class="en">change color</span>
 			<span class="he">שינוי צבע</span>
 		</button>
 		<button id="resetColor" class="button-error">
-			<span class="en lang-hide">reset color</span>
+			<span class="en">reset color</span>
 			<span class="he">איפוס צבע</span>
 		</button>
 		<button id="resetCourses" class="button-error">
-			<span class="en lang-hide">reset courses</span>
+			<span class="en">reset courses</span>
 			<span class="he">איפוס רשימת קורסים</span>
 		</button>
 		<button id="disableExtension" class="button-error">
-			<span class="en lang-hide">disable Hoodle</span>
+			<span class="en">disable Hoodle</span>
 			<span class="he">ביטול Hoodle</span>
 		</button>
 	</div>
 	<button id="enableExtension" class="button-success if-disabled">
-		<span class="en lang-hide">enable Hoodle</span>
+		<span class="en">enable Hoodle</span>
 		<span class="he">הפעלת Hoodle</span>
 	</button>
 	<p class="notice">
-		<span class="en lang-hide">It's recommended to disable the extension while in an exam</span>
+		<span class="en">It's recommended to disable the extension while in an exam</span>
 		<span class="he">מומלץ לבטל את התוסף בעת בחינה</span>
 	</p>
-	<a class="help" target="_blank" href="http://bit.ly/hoodle-help"><span class="he">עזרה ותנאי שימוש</span><span class="en lang-hide">help and terms</span></a>
+	<a class="help" target="_blank" href="http://bit.ly/hoodle-help"><span class="he">עזרה ותנאי שימוש</span><span class="en">help and terms</span></a>
 	<a class="change-language" href="#" id="toHebrew">עברית</a>
 	<a class="change-language" href="#" id="toEnglish">English</a>
   </body>

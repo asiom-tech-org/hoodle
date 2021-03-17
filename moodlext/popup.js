@@ -65,10 +65,10 @@ function changeUILanguage(lang) {
 	if (!LANGUAGES.includes(lang)) {
 		return;
 	}
-	for (let lang of LANGUAGES) {
-		document.querySelectorAll("." + lang).forEach((el) => {el.classList.add("lang-hide");});
+	for (let l of LANGUAGES) {
+		document.body.classList.remove("lang-" + l);
 	}
-	document.querySelectorAll("." + lang).forEach((el) => {el.classList.remove("lang-hide")});
+	document.body.classList.add("lang-" + lang);
 }
 function changeUIDisabled(is_disabled) {
 	if (is_disabled) {
@@ -104,7 +104,7 @@ function showMessage(message) {
 
 function showRefreshPagePrompt() {
 	showMessage(`
-<span class="en lang-hide">Refresh the page to apply changes</span>
+<span class="en">Refresh the page to apply changes</span>
 <span class="he">רעננו את הדף כדי לצפות בשינויים</span>
 	`);
 }
