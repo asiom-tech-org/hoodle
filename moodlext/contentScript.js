@@ -66,6 +66,9 @@ function scriptMain() {
 	function toggleCoursesEditMode() {
 		document.body.classList.toggle(EDITMODE_CLASS);
 	}
+	function toggleWeeksOrder() {
+		document.body.classList.toggle(REVERSEWEEKS_CLASS);
+	}
 
 	var MENU = document.createElement("div");
 	function createMenu() {
@@ -86,9 +89,16 @@ function scriptMain() {
 			<span class="hoodle-en">edit list</span>
 			<span class="hoodle-he">עריכת רשימה</span>
 		</button>
+		<button class="hoodle-reverseWeeks">
+			<span class="hoodle-en">reverse weeks</span>
+			<span class="hoodle-he">הפיכת סדר שבועות</span>
+		</button>
 		</div>`;
 		MENU.getElementsByClassName("hoodle-editCourses")[0].addEventListener("click", () => {
 			toggleCoursesEditMode();
+		});
+		MENU.getElementsByClassName("hoodle-reverseWeeks")[0].addEventListener("click", () => {
+			toggleWeeksOrder();
 		});
 		menu_container.prepend(MENU);
 		return true;
@@ -141,7 +151,7 @@ function scriptMain() {
             toggleCoursesEditMode();
         }
         if (msgObj.action == "reverseWeeks") {
-            document.body.classList.toggle(REVERSEWEEKS_CLASS);
+            toggleWeeksOrder();
         }
 		if (msgObj.action == "changeColor") {
 			let color = msgObj.data;

@@ -121,3 +121,11 @@
 .hoodle-menu .lang-hide {
 	display: none;
 }
+
+
+.hoodle-menu .hoodle-reverseWeeks {
+	display: none;
+}
+.format-topics .hoodle-menu .hoodle-reverseWeeks {
+	display: inline-block;
+}
