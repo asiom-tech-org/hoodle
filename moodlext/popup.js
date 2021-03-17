@@ -1,3 +1,4 @@
+const DISABLED_KEY = 'hoodle_disable';
 const COLOR_KEY = 'hmex_bgcolor';
 const LANGUAGE_KEY = 'hmex_lang';
 
@@ -32,6 +33,17 @@ function sendAction(action, data, cb) {
     });
 }
 
+function getDisabled(cb) {
+	chrome.storage.sync.get([DISABLED_KEY], function(result) {
+        cb && cb(result[DISABLED_KEY]);
+    });
+}
+function setDisabled(is_disabled, cb) {
+	chrome.storage.sync.set({[DISABLED_KEY]: is_disabled}, function(result) {
+        cb && cb(is_disabled);
+    });
+}
+
 function getColor(cb) {
 	chrome.storage.sync.get([COLOR_KEY], function(result) {
         cb && cb(result[COLOR_KEY]);
@@ -58,15 +70,42 @@ function changeUILanguage(lang) {
 	}
 	document.querySelectorAll("." + lang).forEach((el) => {el.classList.remove("lang-hide")});
 }
+function changeUIDisabled(is_disabled) {
+	if (is_disabled) {
+		document.body.classList.remove("hoodle-enabled");
+		document.body.classList.add("hoodle-disabled");
+	} else {
+		document.body.classList.add("hoodle-enabled");
+		document.body.classList.remove("hoodle-disabled");
+	}
+}
+function updateUIDisabled() {
+	getDisabled((is_disabled) => {
+		if (is_disabled === undefined || is_disabled === false) {
+			changeUIDisabled(false);
+		} else {
+			changeUIDisabled(true);
+		}
+	});
+}
 
 
 window.addEventListener('load', (e) => {
+	updateUIDisabled();
+	
 	getLanguage((lang) => {
 		if (lang) {
 		changeUILanguage(lang);
 		}
 	});
-    console.log("loaded");
+	
+	document.getElementById("disableExtension").addEventListener('click', function() {
+        setDisabled(true, ()=>{updateUIDisabled()});
+    });
+	document.getElementById("enableExtension").addEventListener('click', function() {
+        setDisabled(false, ()=>{updateUIDisabled()});
+    });
+	
     document.getElementById("resetCourses").addEventListener('click', function() {
         resetCourses();
     });
