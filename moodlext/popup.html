@@ -73,7 +73,6 @@
 	
 	.help {
 		font-size: 80%;
-		text-align: right;
 		display: block;
 	}
 	.notice {
@@ -103,6 +102,32 @@
 		background-color: grey;
 		font-size: 100%;
 		font-weight: bold;
+	}
+	
+	
+	.message {
+		position: fixed;
+		width: 90%;
+		padding: 10px 0;
+		border: 1px solid #333;
+		border-radius: 10px;
+		text-align: center;
+		background-color: white;
+		top: -30px;
+		margin: 0 auto;
+		visibilty: hidden;
+		opacity: 0;
+		transition: all .5s linear;
+	}
+	.message.message-open {
+		top: 10px;
+		visibility: visible;
+		opacity: 1;
+		transition: all .5s linear;
+	}
+	.change-language {
+		color: grey;
+		text-decoration: none;
 	}
     </style>
   </head>
@@ -142,12 +167,12 @@
 		<span class="en lang-hide">enable Hoodle</span>
 		<span class="he">הפעלת Hoodle</span>
 	</button>
-	<a href="#" id="toHebrew">עברית</a>
-	<a href="#" id="toEnglish">English</a>
 	<p class="notice">
 		<span class="en lang-hide">It's recommended to disable the extension while in an exam</span>
 		<span class="he">מומלץ לבטל את התוסף בעת בחינה</span>
 	</p>
 	<a class="help" target="_blank" href="http://bit.ly/hoodle-help"><span class="he">עזרה ותנאי שימוש</span><span class="en lang-hide">help and terms</span></a>
+	<a class="change-language" href="#" id="toHebrew">עברית</a>
+	<a class="change-language" href="#" id="toEnglish">English</a>
   </body>
 </html>

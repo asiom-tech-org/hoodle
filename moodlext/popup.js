@@ -89,6 +89,25 @@ function updateUIDisabled() {
 	});
 }
 
+function showMessage(message) {
+	let el = document.createElement("div");
+	el.classList.add("message");
+	el.innerHTML = message;
+	document.body.appendChild(el);
+	setTimeout(()=>{
+		el.classList.add("message-open");
+	}, 50);
+	setTimeout(()=>{
+		el.classList.remove("message-open");
+	}, 4000);
+}
+
+function showRefreshPagePrompt() {
+	showMessage(`
+<span class="en lang-hide">Refresh the page to apply changes</span>
+<span class="he">רעננו את הדף כדי לצפות בשינויים</span>
+	`);
+}
 
 window.addEventListener('load', (e) => {
 	updateUIDisabled();
@@ -101,13 +120,16 @@ window.addEventListener('load', (e) => {
 	
 	document.getElementById("disableExtension").addEventListener('click', function() {
         setDisabled(true, ()=>{updateUIDisabled()});
+		showRefreshPagePrompt();
     });
 	document.getElementById("enableExtension").addEventListener('click', function() {
         setDisabled(false, ()=>{updateUIDisabled()});
+		showRefreshPagePrompt();
     });
 	
     document.getElementById("resetCourses").addEventListener('click', function() {
         resetCourses();
+		showRefreshPagePrompt();
     });
     document.getElementById("toggleEditMode").addEventListener('click', function() {
         toggleEditMode();
