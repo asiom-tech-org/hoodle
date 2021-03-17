@@ -41,7 +41,7 @@
 		border: 0;
 		border-radius: 1px;
 	}
-	#resetCourses, #resetColor {
+	.button-error {
 		font-size: 80%;
 	}
 	body {
@@ -57,8 +57,23 @@
 		font-size: 70%;
 	}
 	
-	.lang-hide {
+	
+	.en {
 		display: none;
+	}
+	.lang-he .he {
+		display: inline;
+	}
+	.lang-en .en {
+		display: inline;
+	}
+	.lang-en .he {
+		display: none;
+	}
+	
+	.he {
+		direction: rtl;
+		unicode-bidi: embed;
 	}
 	
 	a {
@@ -69,7 +84,6 @@
 	
 	.help {
 		font-size: 80%;
-		text-align: right;
 		display: block;
 	}
 	.notice {
@@ -78,36 +92,98 @@
 		text-align: center;
 		direction: rtl;
 	}
+	
+	.hoodle-disabled .if-enabled {
+		display: none;
+	}
+	.hoodle-enabled .if-disabled {
+		display: none;
+	}
+	.disabled-message {
+		text-align: center;
+		color: grey;
+		margin: 0;
+		margin-bottom: 10px;
+		padding: 0;
+	}
+	.hoodle-disabled h3 {
+		margin-bottom: 0;
+	}
+	#disableExtension {
+		background-color: grey;
+		font-size: 100%;
+		font-weight: bold;
+	}
+	
+	
+	.message {
+		position: fixed;
+		width: 90%;
+		padding: 10px 0;
+		border: 1px solid #333;
+		border-radius: 10px;
+		text-align: center;
+		background-color: white;
+		top: -30px;
+		margin: 0 auto;
+		visibilty: hidden;
+		opacity: 0;
+		transition: all .5s linear;
+	}
+	.message.message-open {
+		top: 10px;
+		visibility: visible;
+		opacity: 1;
+		transition: all .5s linear;
+	}
+	.change-language {
+		color: grey;
+		text-decoration: none;
+	}
     </style>
   </head>
   <body>
 	<h3>Hoodle</h3>
-	<button id="reverseWeeks" class="button-secondary">
-		<span class="en lang-hide">reverse weeks</span>
-		<span class="he">הפיכת סדר שבועות</span>
+	<p class="disabled-message if-disabled">
+		<span class="en">disabled</span>
+		<span class="he">מבוטל</span>
+	</p>
+	<div class="if-enabled">
+		<button id="reverseWeeks" class="button-secondary">
+			<span class="en">reverse weeks</span>
+			<span class="he">הפיכת סדר שבועות</span>
+		</button>
+		<button id="toggleEditMode" class="button-secondary">
+			<span class="en">edit courses</span>
+			<span class="he">עריכת רשימת קורסים</span>
+		</button>
+		<button id="changeColor" class="button-secondary">
+			<span class="en">change color</span>
+			<span class="he">שינוי צבע</span>
+		</button>
+		<button id="resetColor" class="button-error">
+			<span class="en">reset color</span>
+			<span class="he">איפוס צבע</span>
+		</button>
+		<button id="resetCourses" class="button-error">
+			<span class="en">reset courses</span>
+			<span class="he">איפוס רשימת קורסים</span>
+		</button>
+		<button id="disableExtension" class="button-error">
+			<span class="en">disable Hoodle</span>
+			<span class="he">ביטול Hoodle</span>
+		</button>
+	</div>
+	<button id="enableExtension" class="button-success if-disabled">
+		<span class="en">enable Hoodle</span>
+		<span class="he">הפעלת Hoodle</span>
 	</button>
-    <button id="toggleEditMode" class="button-secondary">
-		<span class="en lang-hide">edit courses</span>
-		<span class="he">עריכת רשימת קורסים</span>
-	</button>
-    <button id="changeColor" class="button-secondary">
-		<span class="en lang-hide">change color</span>
-		<span class="he">שינוי צבע</span>
-	</button>
-    <button id="resetColor" class="button-error">
-		<span class="en lang-hide">reset color</span>
-		<span class="he">איפוס צבע</span>
-	</button>
-	<button id="resetCourses" class="button-error">
-		<span class="en lang-hide">reset courses</span>
-		<span class="he">איפוס רשימת קורסים</span>
-	</button>
-	<a href="#" id="toHebrew">עברית</a>
-	<a href="#" id="toEnglish">English</a>
 	<p class="notice">
-		<span class="en lang-hide">It's recommended to disable the extension while in an exam</span>
+		<span class="en">It's recommended to disable the extension while in an exam</span>
 		<span class="he">מומלץ לבטל את התוסף בעת בחינה</span>
 	</p>
-	<a class="help" target="_blank" href="http://bit.ly/hoodle-help"><span class="he">עזרה ותנאי שימוש</span><span class="en lang-hide">help and terms</span></a>
+	<a class="help" target="_blank" href="http://bit.ly/hoodle-help"><span class="he">עזרה ותנאי שימוש</span><span class="en">help and terms</span></a>
+	<a class="change-language" href="#" id="toHebrew">עברית</a>
+	<a class="change-language" href="#" id="toEnglish">English</a>
   </body>
 </html>

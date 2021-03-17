@@ -1,3 +1,4 @@
+const DISABLED_KEY = 'hoodle_disable';
 const COLOR_KEY = 'hmex_bgcolor';
 const LANGUAGE_KEY = 'hmex_lang';
 
@@ -32,6 +33,17 @@ function sendAction(action, data, cb) {
     });
 }
 
+function getDisabled(cb) {
+	chrome.storage.sync.get([DISABLED_KEY], function(result) {
+        cb && cb(result[DISABLED_KEY]);
+    });
+}
+function setDisabled(is_disabled, cb) {
+	chrome.storage.sync.set({[DISABLED_KEY]: is_disabled}, function(result) {
+        cb && cb(is_disabled);
+    });
+}
+
 function getColor(cb) {
 	chrome.storage.sync.get([COLOR_KEY], function(result) {
         cb && cb(result[COLOR_KEY]);
@@ -53,22 +65,71 @@ function changeUILanguage(lang) {
 	if (!LANGUAGES.includes(lang)) {
 		return;
 	}
-	for (let lang of LANGUAGES) {
-		document.querySelectorAll("." + lang).forEach((el) => {el.classList.add("lang-hide");});
+	for (let l of LANGUAGES) {
+		document.body.classList.remove("lang-" + l);
 	}
-	document.querySelectorAll("." + lang).forEach((el) => {el.classList.remove("lang-hide")});
+	document.body.classList.add("lang-" + lang);
+}
+function changeUIDisabled(is_disabled) {
+	if (is_disabled) {
+		document.body.classList.remove("hoodle-enabled");
+		document.body.classList.add("hoodle-disabled");
+	} else {
+		document.body.classList.add("hoodle-enabled");
+		document.body.classList.remove("hoodle-disabled");
+	}
+}
+function updateUIDisabled() {
+	getDisabled((is_disabled) => {
+		if (is_disabled === undefined || is_disabled === false) {
+			changeUIDisabled(false);
+		} else {
+			changeUIDisabled(true);
+		}
+	});
 }
 
+function showMessage(message) {
+	let el = document.createElement("div");
+	el.classList.add("message");
+	el.innerHTML = message;
+	document.body.appendChild(el);
+	setTimeout(()=>{
+		el.classList.add("message-open");
+	}, 50);
+	setTimeout(()=>{
+		el.classList.remove("message-open");
+	}, 4000);
+}
+
+function showRefreshPagePrompt() {
+	showMessage(`
+<span class="en">Refresh the page to apply changes</span>
+<span class="he">רעננו את הדף כדי לצפות בשינויים</span>
+	`);
+}
 
 window.addEventListener('load', (e) => {
+	updateUIDisabled();
+	
 	getLanguage((lang) => {
 		if (lang) {
 		changeUILanguage(lang);
 		}
 	});
-    console.log("loaded");
+	
+	document.getElementById("disableExtension").addEventListener('click', function() {
+        setDisabled(true, ()=>{updateUIDisabled()});
+		showRefreshPagePrompt();
+    });
+	document.getElementById("enableExtension").addEventListener('click', function() {
+        setDisabled(false, ()=>{updateUIDisabled()});
+		showRefreshPagePrompt();
+    });
+	
     document.getElementById("resetCourses").addEventListener('click', function() {
         resetCourses();
+		showRefreshPagePrompt();
     });
     document.getElementById("toggleEditMode").addEventListener('click', function() {
         toggleEditMode();
