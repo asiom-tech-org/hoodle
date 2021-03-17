@@ -49,6 +49,37 @@ function getCourseId(el) {
     return el.getElementsByTagName("p")[0].getAttribute("data-node-key");
 }
 
+function toggleCoursesEditMode() {
+	document.body.classList.toggle(EDITMODE_CLASS);
+}
+
+var MENU = document.createElement("div");
+function createMenu() {
+	let menu_container = document.querySelector(".columnleft");
+	if (!menu_container) {
+		return false;
+	}
+	
+	MENU.classList.add("hoodle-menu");
+	
+	MENU.innerHTML = `<div class="hoodle-icon"></div>
+	<div class="hoodle-title">
+	<span class="hoodle-he">תפריט Hoodle</span>
+	<span class="hoodle-en">Hoodle Menu</span>
+	</div>
+	<div class="hoodle-buttons">
+	<button class="hoodle-editCourses">
+		<span class="hoodle-en">edit list</span>
+		<span class="hoodle-he">עריכת רשימה</span>
+	</button>
+	</div>`;
+	MENU.getElementsByClassName("hoodle-editCourses")[0].addEventListener("click", () => {
+		toggleCoursesEditMode();
+	});
+	menu_container.prepend(MENU);
+	return true;
+}
+
 const EDITMODE_CLASS = "hmex-editmode";
 const REVERSEWEEKS_CLASS = "hmex-reverse";
 
@@ -80,6 +111,11 @@ function createColorCss(c1, c2, c3) {
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
+	try {
+	  createMenu();
+	}
+	catch(err) {}
+	
 	var newColorStyle = document.createElement('style');
 	document.body.appendChild(newColorStyle);
 	getColor(function(c) {
@@ -91,7 +127,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     chrome.runtime.onMessage.addListener(msgObj => {
         if (msgObj.action == "toggleEditMode") {
-            document.body.classList.toggle(EDITMODE_CLASS);
+            toggleCoursesEditMode();
         }
         if (msgObj.action == "reverseWeeks") {
             document.body.classList.toggle(REVERSEWEEKS_CLASS);
