@@ -60,7 +60,11 @@ function scriptMain() {
 	}
 
 	function getCourseId(el) {
-		return el.getElementsByTagName("p")[0].getAttribute("data-node-key");
+		try {
+			return el.getElementsByTagName("p")[0].getAttribute("data-node-key");
+		} catch (err) {
+			return null;
+		}
 	}
 
 	function toggleCoursesEditMode() {
@@ -93,6 +97,10 @@ function scriptMain() {
 			<span class="hoodle-en">reverse weeks</span>
 			<span class="hoodle-he">הפיכת סדר שבועות</span>
 		</button>
+		<a target="_blank" href="https://bit.ly/hoodle-help" class="hoodle-help">
+			<span title="help" class="hoodle-en">?</span>
+			<span title="עזרה" class="hoodle-he">?</span>
+		</a>
 		</div>`;
 		MENU.getElementsByClassName("hoodle-editCourses")[0].addEventListener("click", () => {
 			toggleCoursesEditMode();
@@ -132,8 +140,10 @@ function scriptMain() {
 		t = t.replace(/\{\{3\}\}/g, c3);
 		return t;
 	}
+	
+	let added_menu = false;
 	try {
-	  createMenu();
+	  added_menu = createMenu();
 	}
 	catch(err) {}
 	
@@ -165,11 +175,19 @@ function scriptMain() {
 		}
     });
 
-
+	if (!added_menu) {
+		// Don't manipulate navigation if menu wasn't added, to prevent unwanted errors
+		return;
+	}
+	
     let courseButtons = document.querySelectorAll("li.type_course");
     courseButtons.forEach((v) => {
         let t = document.createElement("div");
         let cid = getCourseId(v);
+		if (cid == null) {
+			// Skip active course (or if error occurred)
+			return;
+		}
         getClosed(cid, (k) => {
             if (k) {
                 hideCourse(v);
