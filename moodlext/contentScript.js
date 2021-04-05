@@ -136,8 +136,10 @@ function scriptMain() {
 		t = t.replace(/\{\{3\}\}/g, c3);
 		return t;
 	}
+	
+	let added_menu = false;
 	try {
-	  createMenu();
+	  added_menu = createMenu();
 	}
 	catch(err) {}
 	
@@ -169,7 +171,11 @@ function scriptMain() {
 		}
     });
 
-
+	if (!added_menu) {
+		// Don't manipulate navigation if menu wasn't added, to prevent unwanted errors
+		return;
+	}
+	
     let courseButtons = document.querySelectorAll("li.type_course");
     courseButtons.forEach((v) => {
         let t = document.createElement("div");
