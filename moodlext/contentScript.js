@@ -97,6 +97,10 @@ function scriptMain() {
 			<span class="hoodle-en">reverse weeks</span>
 			<span class="hoodle-he">הפיכת סדר שבועות</span>
 		</button>
+		<a target="_blank" href="https://bit.ly/hoodle-help" class="hoodle-help">
+			<span title="help" class="hoodle-en">?</span>
+			<span title="עזרה" class="hoodle-he">?</span>
+		</a>
 		</div>`;
 		MENU.getElementsByClassName("hoodle-editCourses")[0].addEventListener("click", () => {
 			toggleCoursesEditMode();
