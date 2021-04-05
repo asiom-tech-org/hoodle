@@ -60,7 +60,11 @@ function scriptMain() {
 	}
 
 	function getCourseId(el) {
-		return el.getElementsByTagName("p")[0].getAttribute("data-node-key");
+		try {
+			return el.getElementsByTagName("p")[0].getAttribute("data-node-key");
+		} catch (err) {
+			return null;
+		}
 	}
 
 	function toggleCoursesEditMode() {
@@ -170,6 +174,10 @@ function scriptMain() {
     courseButtons.forEach((v) => {
         let t = document.createElement("div");
         let cid = getCourseId(v);
+		if (cid == null) {
+			// Skip active course (or if error occurred)
+			return;
+		}
         getClosed(cid, (k) => {
             if (k) {
                 hideCourse(v);
