@@ -60,11 +60,20 @@ function scriptMain() {
 	}
 
 	function getCourseId(el) {
+		let cid = null;
 		try {
-			return el.getElementsByTagName("p")[0].getAttribute("data-node-key");
+			cid = el.getElementsByTagName("p")[0].getAttribute("data-node-key");
 		} catch (err) {
 			return null;
 		}
+		if (cid == null) {
+			try {
+				cid = el.getAttribute("data-node-key");
+			} catch (err) {
+				return null;
+			}
+		}
+		return cid;
 	}
 
 	function toggleCoursesEditMode() {
